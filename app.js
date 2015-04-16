@@ -4,16 +4,16 @@
  */
 
 var express = require('express')
-  , routes = require('./routes');
+  , routes = require('./routes')
   , neo4j = require('./routes/neo4j');
-  
+
 var app = module.exports = express.createServer();
 
 // Configuration
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
+  app.set('view engine', 'ejs');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
@@ -31,7 +31,11 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
-app.get('neo4j', neo4j);
+app.get('/neo4j', neo4j.index);
+
+app.post('/neo4j/insertNode', neo4j.insertNode);
+app.get('/neo4j/getNodeById/:nodeId', neo4j.getNodeById);
+
 
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

@@ -1,8 +1,10 @@
-var express = require('express');
-var router = express.Router();
+// var express = require('express');
+// var router = express.Router();
 var neo4j = require('../controllers/neo4j');
 
-router.get('/', neo4j.index);
-router.post('/insertNode', neo4j.insertNode);
+exports.index = neo4j.index;
 
-module.exports = router;
+exports.insertNode = neo4j.insertNode;
+
+exports.getNodeById = neo4j.getNodeById;
+
