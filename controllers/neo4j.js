@@ -12,6 +12,9 @@ db = new neo4j('http://neo4j:nxihtPMt2w@localhost:7474');
 
 exports.index  = function(req, res){
 	console.log("Neo4j : index");
+
+	//getting all nodes
+
 	res.render('neo4j', { title: 'Neo4j' })
 }
 
@@ -34,22 +37,15 @@ exports.insertNode = function(req, res) {
 }
 
 exports.getNodeById = function(req, res, next) {
-	console.log(req.params.nodeId);
-	res.send(eq.params.nodeId);
-}
+	console.log("---------get node--------");
+	var nodeid = req.body.nodeid;
+	db.readNode(nodeid, function(err, node){
+	    if(err) throw err;
 
+	    // Output node properties.
+	    console.log(node);
+		res.send(node);
+	});
 
-
-
-
-
-
-
-
-
-
-
-exports.index = function(req, res) {
- 	console.log("--------index--------");
- 	res.send("");
+	
 }

@@ -34,7 +34,7 @@ app.get('/', routes.index);
 app.get('/neo4j', neo4j.index);
 
 app.post('/neo4j/insertNode', neo4j.insertNode);
-app.get('/neo4j/getNodeById/:nodeId', neo4j.getNodeById);
+app.post('/neo4j/getNodeById', neo4j.getNodeById);
 
 
 app.listen(3000, function(){
