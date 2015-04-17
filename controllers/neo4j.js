@@ -38,14 +38,44 @@ exports.insertNode = function(req, res) {
 
 exports.getNodeById = function(req, res, next) {
 	console.log("---------get node--------");
-	var nodeid = req.body.nodeid;
-	db.readNode(nodeid, function(err, node){
-	    if(err) throw err;
+	var nodeId = req.body.nodeId;
+	console.log("Node Id : " + nodeId);
+	db.readNode(nodeId, function(err, node){
+	    if(err) res.send(err);
 
 	    // Output node properties.
 	    console.log(node);
 		res.send(node);
 	});
+}
 
-	
+exports.getEmpFList = function(req, res, next) {
+	console.log("---------get Emp Friends--------");
+
+	var Emp_Name = req.body.Emp_Name;
+	console.log("Emp_Name : " + Emp_Name);
+
+	var query = "MATCH (person { name: " + "\""+ Emp_Name + "\"" + " }) - [r] - m RETURN m"
+
+	console.log(query)
+
+	db.cypherQuery(query, 
+
+		function(err, result){
+	    if(err) throw err;
+	    console.log(result)
+	    res.send(result);
+	});
+
+}
+
+exports.getGraphJson = function(req, res, next) {
+	console.log("---------get graph json--------");
+
+	db.cypherQuery("MATCH (n) RETURN n", 
+		function(err, result){
+	    if(err) throw err;
+	    console.log(result)
+	    res.send(result);
+	});
 }

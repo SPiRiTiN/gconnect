@@ -4,7 +4,7 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
+  , routes = require('./routes/index')
   , neo4j = require('./routes/neo4j');
 
 var app = module.exports = express.createServer();
@@ -17,7 +17,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
+  app.use(express.static(__dirname + '/assets'));
 });
 
 app.configure('development', function(){
@@ -35,6 +35,8 @@ app.get('/neo4j', neo4j.index);
 
 app.post('/neo4j/insertNode', neo4j.insertNode);
 app.post('/neo4j/getNodeById', neo4j.getNodeById);
+app.post('/neo4j/getGraphJson', neo4j.getGraphJson);
+app.post('/neo4j/getEmpFList', neo4j.getEmpFList);
 
 
 app.listen(3000, function(){

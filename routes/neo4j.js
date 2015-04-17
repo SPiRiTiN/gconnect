@@ -8,3 +8,9 @@ exports.insertNode = neo4j.insertNode;
 
 exports.getNodeById = neo4j.getNodeById;
 
+exports.getGraphJson = neo4j.getGraphJson;
+
+exports.getEmpFList = neo4j.getEmpFList;
+
+
+
